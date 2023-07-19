@@ -30,13 +30,13 @@ class PushNotificationService {
 
     // アプリがバックグラウンドで実行中の場合、通知をタップしてアプリを起動した場合の処理
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Get.to(() => const MyHomePage(title: 'RUNPUSH'));
+      Get.to(() => const MyHomePage());
     });
 
     // アプリが起動していない状態で通知をタップしてアプリを起動した場合の処理
     final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
-      Get.to(() => const MyHomePage(title: 'RUNPUSH'));
+      Get.to(() => const MyHomePage());
     }
   }
 }

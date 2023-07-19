@@ -44,7 +44,7 @@ class _CarouselWithIndicatorState extends State<TopView> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [],
+            children: const [],
           ),
         ),
       ),
