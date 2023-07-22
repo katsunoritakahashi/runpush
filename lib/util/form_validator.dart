@@ -15,20 +15,15 @@ class FormValidator {
     return FormValidation.ok();
   }
 
-  static FormValidation validateTimeAfterStartTime({String? endTime, String? startTime}) {
-    if (endTime == null) {
+  static FormValidation validateDateTimeAfterStartDateTime({String? endAt, String? startAt}) {
+    if (endAt == null) {
       return FormValidation.ngDropDown();
     }
-    final startHour = int.parse(startTime!.split(':')[0]);
-    final startMinute = int.parse(startTime.split(':')[1]);
-    final endHour = int.parse(endTime.split(':')[0]);
-    final endMinute = int.parse(endTime.split(':')[1]);
 
-    if (endHour < startHour) {
-      return FormValidation.ngAfterTime();
-    } else if (endHour == startHour && endMinute < startMinute) {
+    if (DateTime.parse(endAt).isBefore(DateTime.parse(startAt!))) {
       return FormValidation.ngAfterTime();
     }
+
     return FormValidation.ok();
   }
 

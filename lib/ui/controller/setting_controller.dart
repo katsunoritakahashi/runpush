@@ -10,14 +10,12 @@ class SettingController extends BaseViewController {
 
   final scheduleData = ScheduleData(startAt: ''.obs, endAt: ''.obs, interval: 0.obs);
 
-  FormValidation validateInputEditData({String? value, required maxLength}) =>
-      FormValidator.validateEditBasicInfo(value: value, maxLength: maxLength);
+  FormValidation validateTimeAfterStartTime({String? value, required String? startAt}) =>
+      FormValidator.validateDateTimeAfterStartDateTime(endAt: value, startAt: startAt);
 
-  FormValidation validateInputEmailData(String? value) => FormValidator.validateRequireEmail(value);
-
-  bool get isScheduleButtonValid =>
-      validateInputEditData(value: scheduleData.startAt(), maxLength: 20).isValid &&
-      validateInputEmailData(scheduleData.endAt()).isValid;
+  bool get isCreateScheduleValid =>
+      validateTimeAfterStartTime(value: scheduleData.endAt(), startAt: scheduleData.startAt())
+          .isValid;
 
   Future<void> onTapOk() async {}
 

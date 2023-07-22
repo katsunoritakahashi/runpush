@@ -73,7 +73,7 @@ class ScheduleView extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: Obx(() => PrimaryButton(
                 label: 'けってい！',
-                isValid: controller.isScheduleButtonValid,
+                isValid: controller.isCreateScheduleValid,
                 onPressed: () {
                   controller.onTapOk();
                 })),

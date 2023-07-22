@@ -54,6 +54,7 @@ class DateTimePickerForm extends StatelessWidget {
       Get.context!,
       currentTime: selectedDateTime,
       maxTime: initialDateTime.add(const Duration(days: 7)),
+      minTime: DateTime.now(),
       locale: LocaleType.jp,
       onConfirm: (DateTime dateTime) {
         onChange?.call(dateTime);
