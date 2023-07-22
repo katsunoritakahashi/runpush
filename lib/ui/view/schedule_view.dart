@@ -9,9 +9,10 @@ import '../widget/primary_button.dart';
 import 'package:intl/intl.dart';
 
 class ScheduleView extends StatelessWidget {
-  ScheduleView({super.key});
+  ScheduleView({super.key, required this.characterId});
 
   final focusNode = FocusNode();
+  final int characterId;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class ScheduleView extends StatelessWidget {
     final scheduleInfo = controller.scheduleData;
     DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
     scheduleInfo.endAt.value = outputFormat.format(DateTime.now().add(const Duration(days: 2)));
+    scheduleInfo.characterId.value = characterId;
 
     return Focus(
       focusNode: focusNode,

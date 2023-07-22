@@ -32,11 +32,13 @@ class TopView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             verticalSpaceSmall,
-            _CharacterCard(imageUrl: 'assets/images/runtekun.png', name: 'カエルとキツネのキメラ'),
+            _CharacterCard(
+                imageUrl: 'assets/images/runtekun.png', name: 'カエルとキツネのキメラ', characterId: 1),
             verticalSpaceSmall,
-            _CharacterCard(imageUrl: 'assets/images/hisaju_san.png', name: '校長'),
+            _CharacterCard(imageUrl: 'assets/images/hisaju_san.png', name: '校長', characterId: 2),
             verticalSpaceSmall,
-            _CharacterCard(imageUrl: 'assets/images/pharaoh.png', name: '𓉔𓍢𓃭𓄿𓂋𓄿𓍯'),
+            _CharacterCard(
+                imageUrl: 'assets/images/pharaoh.png', name: '𓉔𓍢𓃭𓄿𓂋𓄿𓍯', characterId: 3),
           ],
         ),
       ),
@@ -45,15 +47,16 @@ class TopView extends StatelessWidget {
 }
 
 class _CharacterCard extends StatelessWidget {
-  const _CharacterCard({required this.imageUrl, required this.name});
+  const _CharacterCard({required this.imageUrl, required this.name, required this.characterId});
 
   final String imageUrl;
   final String name;
+  final int characterId;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(() => ScheduleView()),
+      onTap: () => Get.to(() => ScheduleView(characterId: characterId)),
       child: Container(
         width: double.infinity,
         height: 170,
