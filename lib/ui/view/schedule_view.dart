@@ -56,9 +56,14 @@ class ScheduleView extends StatelessWidget {
                         onChange: (value) {
                           scheduleInfo.endAt.value = outputFormat.format(value!);
                         },
-                        initialDateTime: DateTime.now(),
+                        initialDateTime: DateTime.now().add(const Duration(days: 2)),
                         showInitialDate: true),
                     verticalSpaceMediumLarge,
+                    const Text(
+                      '応援メッセージは数時間おきに届くよっ！😋',
+                      style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
                   ],
                 ),
               ),

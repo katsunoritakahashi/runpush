@@ -53,6 +53,7 @@ class DateTimePickerForm extends StatelessWidget {
     DatePicker.showDateTimePicker(
       Get.context!,
       currentTime: selectedDateTime,
+      locale: LocaleType.jp,
       onConfirm: (DateTime dateTime) {
         onChange?.call(dateTime);
         // validator?.call(DateFormat.Hm().format(DateTime(2023, 4, 10, picked.hour, picked.minute)));
@@ -62,7 +63,7 @@ class DateTimePickerForm extends StatelessWidget {
   }
 
   void applyDateText(DateTime dateTime) {
-    DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    DateFormat outputFormat = DateFormat('yyyy年MM月dd日 H時m分');
     _controller.text = outputFormat.format(dateTime);
   }
 }
