@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:runpush/ui/widget/date_time_picker_form.dart';
 import '../common/app_color.dart';
 import '../common/ui_helper.dart';
 import '../controller/setting_controller.dart';
-import '../widget/cajico_text_form_field.dart';
 import '../widget/loading_stack.dart';
 import '../widget/primary_button.dart';
+import 'package:intl/intl.dart';
 
 class ScheduleView extends StatelessWidget {
   ScheduleView({super.key});
@@ -16,6 +17,7 @@ class ScheduleView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(SettingController());
     final scheduleInfo = controller.scheduleData;
+    DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 
     return Focus(
       focusNode: focusNode,
@@ -36,28 +38,26 @@ class ScheduleView extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      '応援して欲しいスケジュールを\n設定してねっ！😋',
+                      '応援して欲しい期間を\n設定してねっ！😋',
                       style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
                     verticalSpaceLarge,
-                    CajicoTextFormField(
-                      label: 'いつから',
-                      initValue: '',
-                      maxLines: 1,
-                      onChanged: (value) => () {},
-                      validator: (value) => controller.validateInputEmailData(value).message,
-                    ),
+                    DateTimePickerForm(
+                        labelText: 'いつから',
+                        onChange: (value) {
+                          scheduleInfo.startAt.value = outputFormat.format(value!);
+                        },
+                        initialDateTime: DateTime.now(),
+                        showInitialDate: true),
                     verticalSpaceMedium,
-                    CajicoTextFormField(
-                      label: 'いつまで',
-                      initValue: '',
-                      obscureText: true,
-                      maxLines: 1,
-                      onChanged: (value) => () {},
-                      validator: (value) =>
-                      controller.validateInputEditData(value: value, maxLength: 20).message,
-                    ),
+                    DateTimePickerForm(
+                        labelText: 'いつまで',
+                        onChange: (value) {
+                          scheduleInfo.endAt.value = outputFormat.format(value!);
+                        },
+                        initialDateTime: DateTime.now(),
+                        showInitialDate: true),
                     verticalSpaceMediumLarge,
                   ],
                 ),
