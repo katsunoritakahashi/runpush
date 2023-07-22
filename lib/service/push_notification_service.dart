@@ -1,6 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import '../main.dart';
+import 'package:runpush/ui/view/top_view.dart';
 
 class PushNotificationService {
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
@@ -30,13 +30,13 @@ class PushNotificationService {
 
     // アプリがバックグラウンドで実行中の場合、通知をタップしてアプリを起動した場合の処理
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      Get.to(() => const MyHomePage());
+      Get.to(() => const TopView());
     });
 
     // アプリが起動していない状態で通知をタップしてアプリを起動した場合の処理
     final initialMessage = await FirebaseMessaging.instance.getInitialMessage();
     if (initialMessage != null) {
-      Get.to(() => const MyHomePage());
+      Get.to(() => const TopView());
     }
   }
 }
