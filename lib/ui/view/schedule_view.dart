@@ -18,6 +18,7 @@ class ScheduleView extends StatelessWidget {
     final controller = Get.put(SettingController());
     final scheduleInfo = controller.scheduleData;
     DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+    scheduleInfo.endAt.value = outputFormat.format(DateTime.now().add(const Duration(days: 2)));
 
     return Focus(
       focusNode: focusNode,
@@ -38,19 +39,11 @@ class ScheduleView extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      '応援して欲しい期間を\n設定してねっ！😋',
+                      'いつまで応援して欲しいか\n設定してねっ！😋',
                       style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
                     verticalSpaceLarge,
-                    DateTimePickerForm(
-                        labelText: 'いつから',
-                        onChange: (value) {
-                          scheduleInfo.startAt.value = outputFormat.format(value!);
-                        },
-                        initialDateTime: DateTime.now(),
-                        showInitialDate: true),
-                    verticalSpaceMedium,
                     DateTimePickerForm(
                         labelText: 'いつまで',
                         onChange: (value) {

@@ -15,12 +15,12 @@ class FormValidator {
     return FormValidation.ok();
   }
 
-  static FormValidation validateDateTimeAfterStartDateTime({String? endAt, String? startAt}) {
-    if (endAt == null) {
+  static FormValidation validateDateTimeAfterNow({String? endAt}) {
+    if (endAt == null || endAt == '') {
       return FormValidation.ngDropDown();
     }
 
-    if (DateTime.parse(endAt).isBefore(DateTime.parse(startAt!))) {
+    if (DateTime.parse(endAt).isBefore(DateTime.now())) {
       return FormValidation.ngAfterTime();
     }
 
