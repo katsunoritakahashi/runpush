@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:runpush/ui/controller/setting_controller.dart';
+import 'package:runpush/ui/view/schedule_view.dart';
 import '../common/app_color.dart';
 import '../common/ui_helper.dart';
 
@@ -9,7 +10,7 @@ class TopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(SettingController());
+    Get.put(SettingController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -52,7 +53,7 @@ class _CharacterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => () {},
+      onTap: () => Get.to(() => ScheduleView()),
       child: Container(
         width: double.infinity,
         height: 170,
