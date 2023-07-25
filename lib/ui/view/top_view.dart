@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:runpush/ui/controller/setting_controller.dart';
 import 'package:runpush/ui/view/schedule_view.dart';
+import 'package:runpush/ui/widget/loading_stack.dart';
 import '../common/app_color.dart';
 import '../common/ui_helper.dart';
 
@@ -10,53 +11,58 @@ class TopView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.replace(SettingController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
         centerTitle: true,
         title: const Text('RUNPUSH'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Obx(() {
-          final controller = Get.put(SettingController());
-          final user = controller.user();
-          return Column(
-            children: [
-              const Text(
-                'PUSH(応援)して欲しい\nキャラクターを選んでねっ！😋',
-                style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              const Text(
-                '選んだキャラクターから応援メッセージが届くよ！',
-                style: TextStyle(color: gray3, fontSize: 14),
-                textAlign: TextAlign.center,
-              ),
-              verticalSpaceSmall,
-              _CharacterCard(
-                imageUrl: 'assets/images/runtekun.png',
-                name: 'カエルとキツネのキメラ',
-                characterId: 1,
-                isSelected: user != null && user.characterId == 1,
-              ),
-              verticalSpaceSmall,
-              _CharacterCard(
-                imageUrl: 'assets/images/hisaju_san.png',
-                name: '校長',
-                characterId: 2,
-                isSelected: user != null && user.characterId == 2,
-              ),
-              verticalSpaceSmall,
-              _CharacterCard(
-                imageUrl: 'assets/images/pharaoh.png',
-                name: '𓉔𓍢𓃭𓄿𓂋𓄿𓍯',
-                characterId: 3,
-                isSelected: user != null && user.characterId == 3,
-              ),
-            ],
-          );
-        }),
+      body: GetLoadingStack<SettingController>(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Obx(() {
+              final controller = Get.put(SettingController());
+              final user = controller.user();
+              return Column(
+                children: [
+                  const Text(
+                    'PUSH(応援)して欲しい\nキャラクターを選んでねっ！😋',
+                    style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                  const Text(
+                    '選んだキャラクターから応援メッセージが届くよ！',
+                    style: TextStyle(color: gray3, fontSize: 14),
+                    textAlign: TextAlign.center,
+                  ),
+                  verticalSpaceSmall,
+                  _CharacterCard(
+                    imageUrl: 'assets/images/runtekun.png',
+                    name: 'カエルとキツネのキメラ',
+                    characterId: 1,
+                    isSelected: user != null && user.characterId == 1,
+                  ),
+                  verticalSpaceSmall,
+                  _CharacterCard(
+                    imageUrl: 'assets/images/hisaju_san.png',
+                    name: '校長',
+                    characterId: 2,
+                    isSelected: user != null && user.characterId == 2,
+                  ),
+                  verticalSpaceSmall,
+                  _CharacterCard(
+                    imageUrl: 'assets/images/pharaoh.png',
+                    name: '𓉔𓍢𓃭𓄿𓂋𓄿𓍯',
+                    characterId: 3,
+                    isSelected: user != null && user.characterId == 3,
+                  ),
+                ],
+              );
+            }),
+          ),
+        ),
       ),
     );
   }

@@ -23,15 +23,17 @@ class SettingController extends BaseViewController {
   bool get isCreateUserValid => validateTimeAfterNow(value: userData.endAt()).isValid;
 
   Future<void> onTapOk() async {
-    await api.registerUser(userData);
-    Get.dialog(NormalCompletedDialog(
-      message: 'LGTM！不定期にメッセージが届くからお楽しみに♪',
-      onPressed: () {
-        Get.back();
-        Get.to(() => const TopView());
-        fetchData();
-      },
-    ));
+    await callAsyncApi(() async {
+      await api.registerUser(userData);
+      Get.dialog(NormalCompletedDialog(
+        message: 'LGTM！不定期にメッセージが届くからお楽しみに♪',
+        onPressed: () {
+          Get.back();
+          Get.to(() => const TopView());
+          fetchData();
+        },
+      ));
+    });
   }
 
   @override
