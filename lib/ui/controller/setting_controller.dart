@@ -26,7 +26,7 @@ class SettingController extends BaseViewController {
     await callAsyncApi(() async {
       await api.registerUser(userData);
       Get.dialog(NormalCompletedDialog(
-        message: 'LGTM！不定期にメッセージが届くからお楽しみに♪',
+        message: 'OK！\n不定期にメッセージが届くからお楽しみにお楽しみに〜♪',
         onPressed: () {
           Get.back();
           Get.to(() => const TopView());
@@ -51,7 +51,6 @@ class SettingController extends BaseViewController {
       await Future.wait([
         () async {
           bool result = await api.judgeUser(uid: userData.uid());
-          print(result);
           if (result) {
             user.value = await api.getUser(uid: userData.uid());
             userData.characterId.value = user()!.characterId;

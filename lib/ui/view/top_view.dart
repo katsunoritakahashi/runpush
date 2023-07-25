@@ -21,7 +21,7 @@ class TopView extends StatelessWidget {
       body: GetLoadingStack<SettingController>(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: Obx(() {
               final controller = Get.put(SettingController());
               final user = controller.user();
