@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:runpush/model/schedule_data.dart';
+import 'package:runpush/model/user.dart';
 import '../../model/form_validation.dart';
 import '../../util/form_validator.dart';
 import 'base_view_controller.dart';
@@ -12,12 +12,12 @@ class SettingController extends BaseViewController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
 
-  final scheduleData = ScheduleData(endAt: ''.obs, characterId: 0.obs);
+  final userData = UserData(endAt: ''.obs, characterId: 0.obs, uid: ''.obs, deviceToken: ''.obs);
 
   FormValidation validateTimeAfterNow({String? value}) =>
       FormValidator.validateDateTimeAfterNow(endAt: value);
 
-  bool get isCreateScheduleValid => validateTimeAfterNow(value: scheduleData.endAt()).isValid;
+  bool get isCreateUserValid => validateTimeAfterNow(value: userData.endAt()).isValid;
 
   Future<void> onTapOk() async {}
 

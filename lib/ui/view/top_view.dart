@@ -56,7 +56,7 @@ class _CharacterCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.to(() => ScheduleView(characterId: characterId)),
+      onTap: () => Get.to(() => UserView(characterId: characterId)),
       child: Container(
         width: double.infinity,
         height: 170,

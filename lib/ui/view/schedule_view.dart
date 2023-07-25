@@ -8,8 +8,8 @@ import '../widget/loading_stack.dart';
 import '../widget/primary_button.dart';
 import 'package:intl/intl.dart';
 
-class ScheduleView extends StatelessWidget {
-  ScheduleView({super.key, required this.characterId});
+class UserView extends StatelessWidget {
+  UserView({super.key, required this.characterId});
 
   final focusNode = FocusNode();
   final int characterId;
@@ -17,7 +17,7 @@ class ScheduleView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SettingController());
-    final scheduleInfo = controller.scheduleData;
+    final scheduleInfo = controller.userData;
     DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
     scheduleInfo.endAt.value = outputFormat.format(DateTime.now().add(const Duration(days: 2)));
     scheduleInfo.characterId.value = characterId;
@@ -68,7 +68,7 @@ class ScheduleView extends StatelessWidget {
             padding: const EdgeInsets.all(24),
             child: Obx(() => PrimaryButton(
                 label: 'けってい！',
-                isValid: controller.isCreateScheduleValid,
+                isValid: controller.isCreateUserValid,
                 onPressed: () {
                   controller.onTapOk();
                 })),
