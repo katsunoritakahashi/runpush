@@ -17,15 +17,6 @@ class ApiService extends GetConnect {
     final statusCode = response.statusCode;
     if (statusCode >= 200 && statusCode < 300) {
       return true;
-    } else if (statusCode == 404) {
-      throw ApiException('データがありません');
-    } else if (statusCode == 401) {
-      final body = json.decode(response.body);
-      throw ApiException(body['errorMessage'] ?? '認証できませんでした');
-    } else if (statusCode == 422) {
-      throw ApiException('サーバーが集中しております');
-    } else if (statusCode == 500) {
-      return false;
     } else {
       return false;
     }
@@ -36,17 +27,20 @@ class ApiService extends GetConnect {
     return json.decode(response.body);
   }
 
-  // ユーザー取得API
-  Future<User> getUser(UserData userData) async {
+  // ユーザー有無確認API
+  Future<bool> judgeUser({required String uid}) async {
     final res = await http.post(
-      _makeUri('/register-user'),
+      _makeUri('/register-user/$uid'),
       headers: _commonHeaders,
-      body: jsonEncode({
-        'uid': userData.uid(),
-        'deviceToken': userData.deviceToken(),
-        'characterId': userData.characterId(),
-        'endAt': userData.endAt(),
-      }),
+    );
+    return _checkStatusCode(res);
+  }
+
+  // ユーザー取得API
+  Future<User> getUser({required String uid}) async {
+    final res = await http.post(
+      _makeUri('/register-user/$uid'),
+      headers: _commonHeaders,
     );
     final dynamic data = _decodeResponse(res)['data'];
     return User.fromJson(data);

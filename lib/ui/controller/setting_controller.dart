@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -8,6 +8,7 @@ import '../../util/form_validator.dart';
 import 'base_view_controller.dart';
 
 class SettingController extends BaseViewController {
+  final user = Rxn<User>();
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   DateFormat outputFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
@@ -30,12 +31,16 @@ class SettingController extends BaseViewController {
   Future<void> fetchData({bool useLoadingState = false}) async {
     await callAsyncApi(useLoadingState: useLoadingState, () async {
       String? token = await _fcm.getToken();
-      print(token);
       UserCredential userCredential = await _auth.signInAnonymously();
-      print("匿名ユーザーのUID: ${userCredential.user?.uid}");
+      userData.uid.value = userCredential.user!.uid;
+      userData.deviceToken.value = token!;
       await Future.wait([
         () async {
-          // await api.registerDeviceToken(deviceToken: token);
+          bool result = await api.judgeUser(uid: userData.uid());
+          if (result) {
+            user.value = await api.getUser(uid: userData.uid());
+            userData.characterId.value = user()!.characterId;
+          }
         }(),
       ]);
     });
