@@ -29,8 +29,8 @@ class ApiService extends GetConnect {
 
   // ユーザー有無確認API
   Future<bool> judgeUser({required String uid}) async {
-    final res = await http.post(
-      _makeUri('/register-user/$uid'),
+    final res = await http.get(
+      _makeUri('/user/$uid'),
       headers: _commonHeaders,
     );
     return _checkStatusCode(res);
@@ -38,8 +38,8 @@ class ApiService extends GetConnect {
 
   // ユーザー取得API
   Future<User> getUser({required String uid}) async {
-    final res = await http.post(
-      _makeUri('/register-user/$uid'),
+    final res = await http.get(
+      _makeUri('/user/$uid'),
       headers: _commonHeaders,
     );
     final dynamic data = _decodeResponse(res)['data'];

@@ -42,7 +42,8 @@ class UserView extends StatelessWidget {
                   children: [
                     const Text(
                       'いつまで応援して欲しいか\n設定してねっ！😋',
-                      style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
+                      style:
+                          TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
                       textAlign: TextAlign.center,
                     ),
                     verticalSpaceLarge,
@@ -56,7 +57,8 @@ class UserView extends StatelessWidget {
                     verticalSpaceMediumLarge,
                     const Text(
                       '応援メッセージは数時間おきに届くよっ！😋',
-                      style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
+                      style:
+                          TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -69,9 +71,7 @@ class UserView extends StatelessWidget {
             child: Obx(() => PrimaryButton(
                 label: 'けってい！',
                 isValid: controller.isCreateUserValid,
-                onPressed: () {
-                  controller.onTapOk();
-                })),
+                onPressed: () => controller.onTapOk())),
           ),
         ),
       ),

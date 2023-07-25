@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:runpush/model/user.dart';
 import '../../model/form_validation.dart';
 import '../../util/form_validator.dart';
+import '../view/top_view.dart';
+import '../widget/normal_completed_dialog.dart';
 import 'base_view_controller.dart';
 
 class SettingController extends BaseViewController {
@@ -20,16 +22,26 @@ class SettingController extends BaseViewController {
 
   bool get isCreateUserValid => validateTimeAfterNow(value: userData.endAt()).isValid;
 
-  Future<void> onTapOk() async {}
+  Future<void> onTapOk() async {
+    await api.registerUser(userData);
+    Get.dialog(NormalCompletedDialog(
+      message: 'LGTM！不定期にメッセージが届くからお楽しみに♪',
+      onPressed: () {
+        Get.back();
+        Get.to(() => const TopView());
+        fetchData();
+      },
+    ));
+  }
 
   @override
   void onInit() {
     super.onInit();
-    fetchData(useLoadingState: true);
+    fetchData();
   }
 
-  Future<void> fetchData({bool useLoadingState = false}) async {
-    await callAsyncApi(useLoadingState: useLoadingState, () async {
+  Future<void> fetchData() async {
+    await callAsyncApi(() async {
       String? token = await _fcm.getToken();
       UserCredential userCredential = await _auth.signInAnonymously();
       userData.uid.value = userCredential.user!.uid;
@@ -37,6 +49,7 @@ class SettingController extends BaseViewController {
       await Future.wait([
         () async {
           bool result = await api.judgeUser(uid: userData.uid());
+          print(result);
           if (result) {
             user.value = await api.getUser(uid: userData.uid());
             userData.characterId.value = user()!.characterId;
