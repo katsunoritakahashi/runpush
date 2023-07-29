@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:runpush/ui/controller/setting_controller.dart';
 import 'package:runpush/ui/view/schedule_view.dart';
 import 'package:runpush/ui/widget/loading_stack.dart';
@@ -29,7 +31,8 @@ class TopView extends StatelessWidget {
                 children: [
                   const Text(
                     'PUSH(応援)して欲しい\nキャラクターを選んでねっ！😋',
-                    style: TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
+                    style:
+                        TextStyle(color: primaryColor, fontWeight: FontWeight.bold, fontSize: 20),
                     textAlign: TextAlign.center,
                   ),
                   const Text(
@@ -43,6 +46,7 @@ class TopView extends StatelessWidget {
                     name: 'カエルとキツネのキメラ',
                     characterId: 1,
                     isSelected: user != null && user.characterId == 1,
+                    endAt: user?.endAt,
                   ),
                   verticalSpaceSmall,
                   _CharacterCard(
@@ -50,6 +54,7 @@ class TopView extends StatelessWidget {
                     name: '校長',
                     characterId: 2,
                     isSelected: user != null && user.characterId == 2,
+                    endAt: user?.endAt,
                   ),
                   verticalSpaceSmall,
                   _CharacterCard(
@@ -57,6 +62,7 @@ class TopView extends StatelessWidget {
                     name: '𓉔𓍢𓃭𓄿𓂋𓄿𓍯',
                     characterId: 3,
                     isSelected: user != null && user.characterId == 3,
+                    endAt: user?.endAt,
                   ),
                 ],
               );
@@ -74,15 +80,18 @@ class _CharacterCard extends StatelessWidget {
     required this.name,
     required this.characterId,
     required this.isSelected,
+    this.endAt,
   });
 
   final String imageUrl;
   final String name;
   final int characterId;
   final bool isSelected;
+  final DateTime? endAt;
 
   @override
   Widget build(BuildContext context) {
+    DateFormat outputFormat = DateFormat('M月d日H時m分');
     return InkWell(
       onTap: () => Get.to(() => UserView(characterId: characterId)),
       child: Container(
@@ -105,8 +114,15 @@ class _CharacterCard extends StatelessWidget {
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, color: Colors.white, fontSize: 22)),
             isSelected
-                ? const _ColorTextLabel(labelText: '選択中', labelColor: primaryColor)
-                : const SizedBox()
+                ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const _ColorTextLabel(labelText: '選択中', labelColor: primaryColor),
+                      Text('${outputFormat.format(endAt!)}まで',
+                          style: const TextStyle(color: Colors.white))
+                    ],
+                  )
+                : const SizedBox(),
           ],
         ),
       ),

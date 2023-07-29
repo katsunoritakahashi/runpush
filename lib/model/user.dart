@@ -10,14 +10,14 @@ class User {
 
   final String uid;
   final String deviceToken;
-  final String endAt;
+  final DateTime endAt;
   final int characterId;
 
   static User fromJson(Map<String, dynamic> json) {
     return User(
       uid: json['uid'],
       deviceToken: json['deviceToken'],
-      endAt: json['endAt'],
+      endAt: DateTime.parse(json['endAt']),
       characterId: json['characterId'],
     );
   }

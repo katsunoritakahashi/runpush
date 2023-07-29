@@ -26,7 +26,7 @@ class SettingController extends BaseViewController {
     await callAsyncApi(() async {
       await api.registerUser(userData);
       Get.dialog(NormalCompletedDialog(
-        message: 'OK！\n不定期にメッセージが届くからお楽しみにお楽しみに〜♪',
+        message: 'おーけー！\n不定期にメッセージが届くからお楽しみに〜♪',
         onPressed: () {
           Get.back();
           Get.to(() => const TopView());
