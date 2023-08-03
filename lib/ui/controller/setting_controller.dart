@@ -29,7 +29,7 @@ class SettingController extends BaseViewController {
         message: 'おーけー！\n不定期にメッセージが届くからお楽しみに〜♪',
         onPressed: () {
           Get.back();
-          Get.to(() => const TopView());
+          Get.offAll(() => const TopView());
           fetchData();
         },
       ));
